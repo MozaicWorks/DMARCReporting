@@ -8,3 +8,5 @@ mkdir -p reports
 
 xmllint --xpath "/feedback/record/auth_results/spf[contains(result, 'fail')]" input/*.xml >> reports/report-spf.xml
 xmllint --xpath "/feedback/record/auth_results/dkim[contains(result, 'fail')]" input/*.xml >> reports/report-dkim.xml
+
+xmllint --xpath "/feedback/record/row/source_ip[../policy_evaluated/disposition = 'reject']" input/*.xml >>reports/dmarc-rejected.xml
