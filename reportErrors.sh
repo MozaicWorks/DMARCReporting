@@ -2,6 +2,7 @@
 
 mkdir -p input 
 unzip -o "samples/*.zip" -d input/
+for f in samples/*.gz; do gunzip -c $f > input/$(basename ${f%.*}); done
 
 mkdir -p reports
 
