@@ -1,4 +1,5 @@
 import io
+
 import pytest
 
 from .context import DMARCReporting  # noqa F401
