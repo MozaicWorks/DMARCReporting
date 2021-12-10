@@ -2,7 +2,7 @@ import io
 import pytest
 
 from .context import DMARCReporting  # noqa F401
-from DMARCReporting.dmarc_rua_parser import DMARCRuaParser
+from DMARCReporting.parser import DMARCRuaParser
 
 
 def rua_report(disposition="none", spf_aligned="pass", dkim_aligned="pass"):
