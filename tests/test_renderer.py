@@ -13,7 +13,7 @@ def test_render_when_no_data():
         data = []
 
         sut = ConsoleRenderer()
-        sut.render(data)
+        sut.render("ruareport_file", data)
 
         expected = ""
         actual = output.getvalue()
@@ -34,9 +34,11 @@ def test_render_when_data():
         ]
 
         sut = ConsoleRenderer()
-        sut.render(data)
+        sut.render("ruareport_file", data)
 
         expected = (
+            "\n"
+            "ruareport_file\n"
             "Source IP    DMARC              DKIM Aligned    SPF Aligned\n"
             "-----------  -----------------  --------------  -------------\n"
             "source_ip    dmarc_disposition  dkim_aligned    spf_aligned\n"

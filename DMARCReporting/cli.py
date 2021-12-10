@@ -17,4 +17,4 @@ class CLI():
 
         for report in reports:
             data = parser.parse(join(input_dir, report))
-            renderer.render(data)
+            renderer.render(report, data)
