@@ -5,7 +5,7 @@ from lxml import etree as ET
 class DMARCRuaParser():
     def execute(self, rua_report):
         root = ET.parse(rua_report)
-        records = root.xpath(".//record[./row/policy_evaluated/disposition = 'quarantine']")
+        records = root.xpath(".//record[./row/policy_evaluated/disposition != 'none']")
         data = []
         for record in records:
             row = record[0]
