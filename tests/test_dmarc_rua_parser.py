@@ -5,7 +5,7 @@ from .context import DMARCReporting  # noqa F401
 from DMARCReporting.dmarc_rua_parser import DMARCRuaParser
 
 
-def rua_report(disposition):
+def rua_report(disposition="none", spf_aligned="pass"):
     return io.StringIO(
         """
         <feedback>
@@ -16,7 +16,7 @@ def rua_report(disposition):
                 <policy_evaluated>
                     <disposition>{disposition}</disposition>
                     <dkim>fail</dkim>
-                    <spf>fail</spf>
+                    <spf>{spf_aligned}</spf>
                 </policy_evaluated>
                 </row>
                 <identifiers>
@@ -35,22 +35,27 @@ def rua_report(disposition):
                 </auth_results>
             </record>
         </feedback>
-        """.format(disposition=disposition))
+        """.format(disposition=disposition, spf_aligned=spf_aligned))
 
 
 @pytest.fixture
 def rua_report_quarantine():
-    return rua_report("quarantine")
+    return rua_report(disposition="quarantine", spf_aligned="fail")
 
 
 @pytest.fixture
 def rua_report_none():
-    return rua_report("none")
+    return rua_report()
 
 
 @pytest.fixture
 def rua_report_reject():
-    return rua_report("reject")
+    return rua_report(disposition="reject", spf_aligned="fail")
+
+
+@pytest.fixture
+def rua_report_spf_aligned():
+    return rua_report()
 
 
 def test_when_dmarc_disposition_quarantine(rua_report_quarantine):
@@ -69,3 +74,9 @@ def test_when_dmarc_disposition_reject(rua_report_reject):
     sut = DMARCRuaParser()
     actual = sut.execute(rua_report_reject)
     assert [["101.0.122.38", "reject"]] == actual
+
+
+def test_when_spf_aligned(rua_report_spf_aligned):
+    sut = DMARCRuaParser()
+    actual = sut.execute(rua_report_spf_aligned)
+    assert [] == actual
