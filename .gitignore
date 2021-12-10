@@ -2,3 +2,7 @@
 samples/*
 input/*
 reports/*
+
+# Python
+*.pyc
+__pycache__
