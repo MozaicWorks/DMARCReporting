@@ -58,6 +58,11 @@ def rua_report_spf_aligned():
     return rua_report()
 
 
+@pytest.fixture
+def rua_report_spf_not_aligned():
+    return rua_report(spf_aligned="fail")
+
+
 def test_when_dmarc_disposition_quarantine(rua_report_quarantine):
     sut = DMARCRuaParser()
     actual = sut.execute(rua_report_quarantine)
@@ -80,3 +85,9 @@ def test_when_spf_aligned(rua_report_spf_aligned):
     sut = DMARCRuaParser()
     actual = sut.execute(rua_report_spf_aligned)
     assert [] == actual
+
+
+def test_when_spf_not_aligned(rua_report_spf_not_aligned):
+    sut = DMARCRuaParser()
+    actual = sut.execute(rua_report_spf_not_aligned)
+    assert [["101.0.122.38", "none"]] == actual
