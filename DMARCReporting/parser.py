@@ -3,7 +3,7 @@ from lxml import etree as ET
 
 
 class DMARCRuaParser():
-    def execute(self, rua_report):
+    def parse(self, rua_report):
         root = ET.parse(rua_report)
         records = root.xpath(
             (
