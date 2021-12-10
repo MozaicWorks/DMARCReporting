@@ -48,6 +48,11 @@ def rua_report_none():
     return rua_report("none")
 
 
+@pytest.fixture
+def rua_report_reject():
+    return rua_report("reject")
+
+
 def test_when_dmarc_disposition_quarantine(rua_report_quarantine):
     sut = DMARCRuaParser()
     actual = sut.execute(rua_report_quarantine)
@@ -58,3 +63,9 @@ def test_when_dmarc_disposition_none(rua_report_none):
     sut = DMARCRuaParser()
     actual = sut.execute(rua_report_none)
     assert [] == actual
+
+
+def test_when_dmarc_disposition_reject(rua_report_reject):
+    sut = DMARCRuaParser()
+    actual = sut.execute(rua_report_reject)
+    assert [["101.0.122.38", "reject"]] == actual
