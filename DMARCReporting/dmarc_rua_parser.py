@@ -20,7 +20,8 @@ class DMARCRuaParser():
             source_ip = row[0].text
             dmarc_policy_evalution = row[2]
             dmarc_disposition = dmarc_policy_evalution[0].text
+            dkim_align = dmarc_policy_evalution[1].text
             spf_align = dmarc_policy_evalution[2].text
 
-            data.append([source_ip, dmarc_disposition, spf_align])
+            data.append([source_ip, dmarc_disposition, dkim_align, spf_align])
         return data
