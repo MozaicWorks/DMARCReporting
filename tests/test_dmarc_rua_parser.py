@@ -66,7 +66,7 @@ def rua_report_spf_not_aligned():
 def test_when_dmarc_disposition_quarantine(rua_report_quarantine):
     sut = DMARCRuaParser()
     actual = sut.execute(rua_report_quarantine)
-    assert [["101.0.122.38", "quarantine"]] == actual
+    assert [["101.0.122.38", "quarantine", "fail"]] == actual
 
 
 def test_when_dmarc_disposition_none(rua_report_none):
@@ -78,7 +78,7 @@ def test_when_dmarc_disposition_none(rua_report_none):
 def test_when_dmarc_disposition_reject(rua_report_reject):
     sut = DMARCRuaParser()
     actual = sut.execute(rua_report_reject)
-    assert [["101.0.122.38", "reject"]] == actual
+    assert [["101.0.122.38", "reject", "fail"]] == actual
 
 
 def test_when_spf_aligned(rua_report_spf_aligned):
@@ -90,4 +90,4 @@ def test_when_spf_aligned(rua_report_spf_aligned):
 def test_when_spf_not_aligned(rua_report_spf_not_aligned):
     sut = DMARCRuaParser()
     actual = sut.execute(rua_report_spf_not_aligned)
-    assert [["101.0.122.38", "none"]] == actual
+    assert [["101.0.122.38", "none", "fail"]] == actual
