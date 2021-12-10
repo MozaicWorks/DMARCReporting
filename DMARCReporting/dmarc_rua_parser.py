@@ -9,7 +9,8 @@ class DMARCRuaParser():
             (
                 ".//record["
                 "./row/policy_evaluated/disposition != 'none' or "
-                "./row/policy_evaluated/spf!='pass'"
+                "./row/policy_evaluated/spf!='pass' or "
+                "./row/policy_evaluated/dkim!='pass'"
                 "]"
             )
         )
