@@ -11,6 +11,8 @@ class ConsoleRenderer():
         print(file)
         print(tabulate(data, headers=[
             "Source IP",
+            "Payload From (From:)",
+            "Envelop From (MAIL FROM)",
             "DMARC",
             "DKIM Align",
             "DKIM Auth",

@@ -38,4 +38,4 @@ def not_authenticated():
 def test_when_spf_not_authenticated(not_authenticated):
     sut = DMARCRuaParser()
     actual = sut.parse(not_authenticated)
-    assert [["201.81.220.40", "none", "pass", "pass", "pass", "fail"]] == actual
+    assert [["201.81.220.40", "email.com", "example.com", "none", "pass", "pass", "pass", "fail"]] == actual

@@ -39,7 +39,7 @@ def not_authenticated():
 def test_when_not_authenticated(not_authenticated):
     sut = DMARCRuaParser()
     actual = sut.parse(not_authenticated)
-    assert [["201.81.220.40", "none", "pass", "fail", "pass", "pass"]] == actual
+    assert [["201.81.220.40", "email.com", "", "none", "pass", "fail", "pass", "pass"]] == actual
 
 
 @pytest.fixture
@@ -80,4 +80,4 @@ def authenticated_two_records():
 def test_when_not_authenticated_having_two_records(authenticated_two_records):
     sut = DMARCRuaParser()
     actual = sut.parse(authenticated_two_records)
-    assert [["201.81.220.40", "none", "pass", "fail", "pass", "pass"]] == actual
+    assert [["201.81.220.40", "email.com", "", "none", "pass", "fail", "pass", "pass"]] == actual

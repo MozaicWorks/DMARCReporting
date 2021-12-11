@@ -35,5 +35,17 @@ class DMARCRuaParser():
                        map(lambda result: result.text, auth_results.xpath("./spf/result"))
                        ), 'pass')
 
-            data.append([source_ip, dmarc_disposition, dkim_align, dkim_auth, spf_align, spf_auth])
+            identifiers = record[1]
+            payload_from = identifiers[0].text
+            envelop_from = next(
+                filter(lambda result: result,
+                       map(lambda result: result.text,
+                           auth_results.xpath("./spf/domain"))
+                       ), '')
+
+            data.append([
+                source_ip, payload_from, envelop_from,
+                dmarc_disposition,
+                dkim_align, dkim_auth, spf_align, spf_auth
+            ])
         return data
