@@ -24,15 +24,15 @@ def rua_report(disposition="none", spf_aligned="pass", dkim_aligned="pass"):
                 <header_from>email.com</header_from>
                 </identifiers>
                 <auth_results>
-                <dkim>
-                    <domain>example.com</domain>
-                    <result>pass</result>
-                    <selector>default</selector>
-                </dkim>
-                <spf>
-                    <domain>example.com</domain>
-                    <result>pass</result>
-                </spf>
+                    <dkim>
+                        <domain>example.com</domain>
+                        <result>pass</result>
+                        <selector>default</selector>
+                    </dkim>
+                    <spf>
+                        <domain>example.com</domain>
+                        <result>pass</result>
+                    </spf>
                 </auth_results>
             </record>
         </feedback>
@@ -81,7 +81,7 @@ def rua_report_dkim_not_aligned():
 def test_when_dmarc_disposition_quarantine(rua_report_quarantine):
     sut = DMARCRuaParser()
     actual = sut.parse(rua_report_quarantine)
-    assert [["101.0.122.38", "quarantine", "fail", "fail"]] == actual
+    assert [["101.0.122.38", "quarantine", "fail", "pass", "fail", "pass"]] == actual
 
 
 def test_when_dmarc_disposition_none(rua_report_none):
@@ -93,7 +93,7 @@ def test_when_dmarc_disposition_none(rua_report_none):
 def test_when_dmarc_disposition_reject(rua_report_reject):
     sut = DMARCRuaParser()
     actual = sut.parse(rua_report_reject)
-    assert [["101.0.122.38", "reject", "fail", "fail"]] == actual
+    assert [["101.0.122.38", "reject", "fail", "pass", "fail", "pass"]] == actual
 
 
 def test_when_spf_and_dkim_aligned(rua_report_spf_and_dkim_aligned):
@@ -105,10 +105,10 @@ def test_when_spf_and_dkim_aligned(rua_report_spf_and_dkim_aligned):
 def test_when_spf_not_aligned(rua_report_spf_not_aligned):
     sut = DMARCRuaParser()
     actual = sut.parse(rua_report_spf_not_aligned)
-    assert [["101.0.122.38", "none", "pass", "fail"]] == actual
+    assert [["101.0.122.38", "none", "pass", "pass", "fail", "pass"]] == actual
 
 
 def test_when_dkim_not_aligned(rua_report_dkim_not_aligned):
     sut = DMARCRuaParser()
     actual = sut.parse(rua_report_dkim_not_aligned)
-    assert [["101.0.122.38", "none", "fail", "pass"]] == actual
+    assert [["101.0.122.38", "none", "fail", "pass", "pass", "pass"]] == actual

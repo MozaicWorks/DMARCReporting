@@ -30,7 +30,7 @@ def test_render_when_data():
         sys.stdout = output
 
         data = [
-            ["source_ip", "dmarc_disposition", "dkim_aligned", "spf_aligned"]
+            ["source_ip", "dmarc_disposition", "dkim_aligned", "dkim_auth", "spf_aligned", "spf_auth"]
         ]
 
         sut = ConsoleRenderer()
@@ -39,9 +39,9 @@ def test_render_when_data():
         expected = (
             "\n"
             "ruareport_file\n"
-            "Source IP    DMARC              DKIM Aligned    SPF Aligned\n"
-            "-----------  -----------------  --------------  -------------\n"
-            "source_ip    dmarc_disposition  dkim_aligned    spf_aligned\n"
+            "Source IP    DMARC              DKIM Aligned    DKIM Authenticated    SPF Aligned    SPF Authenticated\n"
+            "-----------  -----------------  --------------  --------------------  -------------  -------------------\n"
+            "source_ip    dmarc_disposition  dkim_aligned    dkim_auth             spf_aligned    spf_auth\n"
         )
         actual = output.getvalue()
 

@@ -13,5 +13,7 @@ class ConsoleRenderer():
             "Source IP",
             "DMARC",
             "DKIM Aligned",
-            "SPF Aligned"
+            "DKIM Authenticated",
+            "SPF Aligned",
+            "SPF Authenticated"
         ]))

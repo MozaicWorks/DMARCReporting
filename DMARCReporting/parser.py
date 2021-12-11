@@ -9,8 +9,10 @@ class DMARCRuaParser():
             (
                 ".//record["
                 "./row/policy_evaluated/disposition != 'none' or "
-                "./row/policy_evaluated/spf!='pass' or "
-                "./row/policy_evaluated/dkim!='pass'"
+                "./row/policy_evaluated/spf != 'pass' or "
+                "./row/policy_evaluated/dkim != 'pass' or "
+                "./auth_results/dkim/result != 'pass' or "
+                "./auth_results/spf/result!='pass'"
                 "]"
             )
         )
@@ -23,5 +25,15 @@ class DMARCRuaParser():
             dkim_align = dmarc_policy_evalution[1].text
             spf_align = dmarc_policy_evalution[2].text
 
-            data.append([source_ip, dmarc_disposition, dkim_align, spf_align])
+            auth_results = record[2]
+            dkim_auth = next(
+                filter(lambda result: result != 'pass',
+                       map(lambda result: result.text, auth_results.xpath("./dkim/result"))
+                       ), 'pass')
+            spf_auth = next(
+                filter(lambda result: result != 'pass',
+                       map(lambda result: result.text, auth_results.xpath("./spf/result"))
+                       ), 'pass')
+
+            data.append([source_ip, dmarc_disposition, dkim_align, dkim_auth, spf_align, spf_auth])
         return data
