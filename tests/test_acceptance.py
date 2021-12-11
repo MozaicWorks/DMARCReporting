@@ -16,10 +16,10 @@ def test_render_when_data():
         expected = (
             "\n"
             "report.xml\n"
-            "Source IP      DMARC    DKIM Aligned    DKIM Authenticated    SPF Aligned    SPF Authenticated\n"
-            "-------------  -------  --------------  --------------------  -------------  -------------------\n"
-            "80.96.161.193  none     pass            pass                  fail           fail\n"
-            "207.90.221.45  none     pass            pass                  fail           pass\n"
+            "Source IP      DMARC    DKIM Align    DKIM Auth    SPF Align    SPF Auth\n"
+            "-------------  -------  ------------  -----------  -----------  ----------\n"
+            "80.96.161.193  none     pass          pass         fail         fail\n"
+            "207.90.221.45  none     pass          pass         fail         pass\n"
         )
         actual = output.getvalue()
 

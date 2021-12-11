@@ -12,8 +12,8 @@ class ConsoleRenderer():
         print(tabulate(data, headers=[
             "Source IP",
             "DMARC",
-            "DKIM Aligned",
-            "DKIM Authenticated",
-            "SPF Aligned",
-            "SPF Authenticated"
+            "DKIM Align",
+            "DKIM Auth",
+            "SPF Align",
+            "SPF Auth"
         ]))

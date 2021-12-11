@@ -5,7 +5,7 @@ from .context import DMARCReporting  # noqa F401
 from DMARCReporting.renderer import ConsoleRenderer
 
 
-def test_render_when_no_data():
+def test_render_without_data():
     try:
         output = io.StringIO()
         sys.stdout = output
@@ -24,7 +24,7 @@ def test_render_when_no_data():
         sys.stdout = sys.__stdout__
 
 
-def test_render_when_data():
+def test_render_with_data():
     try:
         output = io.StringIO()
         sys.stdout = output
@@ -39,9 +39,9 @@ def test_render_when_data():
         expected = (
             "\n"
             "ruareport_file\n"
-            "Source IP    DMARC              DKIM Aligned    DKIM Authenticated    SPF Aligned    SPF Authenticated\n"
-            "-----------  -----------------  --------------  --------------------  -------------  -------------------\n"
-            "source_ip    dmarc_disposition  dkim_aligned    dkim_auth             spf_aligned    spf_auth\n"
+            "Source IP    DMARC              DKIM Align    DKIM Auth    SPF Align    SPF Auth\n"
+            "-----------  -----------------  ------------  -----------  -----------  ----------\n"
+            "source_ip    dmarc_disposition  dkim_aligned  dkim_auth    spf_aligned  spf_auth\n"
         )
         actual = output.getvalue()
 
