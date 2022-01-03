@@ -78,37 +78,50 @@ def rua_report_dkim_not_aligned():
     return rua_report(dkim_aligned="fail")
 
 
+class DNSStub:
+    def reverse_name(self, ipv4):
+        return "mail.email.com"
+
+
 def test_when_dmarc_disposition_quarantine(rua_report_quarantine):
-    sut = DMARCRuaParser()
+    sut = DMARCRuaParser(DNSStub())
     actual = sut.parse(rua_report_quarantine)
-    assert [["101.0.122.38", "email.com", "example.com", "quarantine", "fail", "pass", "fail", "pass"]] == actual
+    expected = [
+        ["101.0.122.38", "mail.email.com", "email.com", "example.com", "quarantine", "fail", "pass", "fail", "pass"]
+    ]
+    assert expected == actual
 
 
 def test_when_dmarc_disposition_none(rua_report_none):
-    sut = DMARCRuaParser()
+    sut = DMARCRuaParser(DNSStub())
     actual = sut.parse(rua_report_none)
     assert [] == actual
 
 
 def test_when_dmarc_disposition_reject(rua_report_reject):
-    sut = DMARCRuaParser()
+    sut = DMARCRuaParser(DNSStub())
     actual = sut.parse(rua_report_reject)
-    assert [["101.0.122.38", "email.com", "example.com", "reject", "fail", "pass", "fail", "pass"]] == actual
+    expected = [
+        ["101.0.122.38", "mail.email.com", "email.com", "example.com", "reject", "fail", "pass", "fail", "pass"]
+    ]
+    assert expected == actual
 
 
 def test_when_spf_and_dkim_aligned(rua_report_spf_and_dkim_aligned):
-    sut = DMARCRuaParser()
+    sut = DMARCRuaParser(DNSStub())
     actual = sut.parse(rua_report_spf_and_dkim_aligned)
     assert [] == actual
 
 
 def test_when_spf_not_aligned(rua_report_spf_not_aligned):
-    sut = DMARCRuaParser()
+    sut = DMARCRuaParser(DNSStub())
     actual = sut.parse(rua_report_spf_not_aligned)
-    assert [["101.0.122.38", "email.com", "example.com", "none", "pass", "pass", "fail", "pass"]] == actual
+    expected = [["101.0.122.38", "mail.email.com", "email.com", "example.com", "none", "pass", "pass", "fail", "pass"]]
+    assert expected == actual
 
 
 def test_when_dkim_not_aligned(rua_report_dkim_not_aligned):
-    sut = DMARCRuaParser()
+    sut = DMARCRuaParser(DNSStub())
     actual = sut.parse(rua_report_dkim_not_aligned)
-    assert [["101.0.122.38", "email.com", "example.com", "none", "fail", "pass", "pass", "pass"]] == actual
+    expected = [["101.0.122.38", "mail.email.com", "email.com", "example.com", "none", "fail", "pass", "pass", "pass"]]
+    assert expected == actual

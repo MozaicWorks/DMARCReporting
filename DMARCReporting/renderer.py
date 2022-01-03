@@ -2,7 +2,7 @@
 from tabulate import tabulate
 
 
-class ConsoleRenderer():
+class ConsoleRenderer:
     def render(self, file, data):
         if len(data) == 0:
             return
@@ -11,6 +11,7 @@ class ConsoleRenderer():
         print(file)
         print(tabulate(data, headers=[
             "Source IP",
+            "Source Host",
             "Payload From (From:)",
             "Envelop From (MAIL FROM)",
             "DMARC",

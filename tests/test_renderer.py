@@ -31,7 +31,8 @@ def test_render_with_data():
 
         data = [
             [
-                "source_ip", "payload_from", "envelop_from",
+                "source_ip", "source_host",
+                "payload_from", "envelop_from",
                 "dmarc_disposition",
                 "dkim_aligned", "dkim_auth", "spf_aligned", "spf_auth"
             ]
@@ -43,9 +44,9 @@ def test_render_with_data():
         expected = (
             "\n"
             "ruareport_file\n"
-            "Source IP    Payload From (From:)    Envelop From (MAIL FROM)    DMARC              DKIM Align    DKIM Auth    SPF Align    SPF Auth\n"  # noqa E501
-            "-----------  ----------------------  --------------------------  -----------------  ------------  -----------  -----------  ----------\n"  # noqa E501
-            "source_ip    payload_from            envelop_from                dmarc_disposition  dkim_aligned  dkim_auth    spf_aligned  spf_auth\n"  # noqa E501
+            "Source IP    Source Host    Payload From (From:)    Envelop From (MAIL FROM)    DMARC              DKIM Align    DKIM Auth    SPF Align    SPF Auth\n"  # noqa E501
+            "-----------  -------------  ----------------------  --------------------------  -----------------  ------------  -----------  -----------  ----------\n"  # noqa E501
+            "source_ip    source_host    payload_from            envelop_from                dmarc_disposition  dkim_aligned  dkim_auth    spf_aligned  spf_auth\n"  # noqa E501
         )
         actual = output.getvalue()
 

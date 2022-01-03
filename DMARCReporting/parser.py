@@ -2,7 +2,10 @@
 from lxml import etree as ET
 
 
-class DMARCRuaParser():
+class DMARCRuaParser:
+    def __init__(self, dns):
+        self.dns = dns
+
     def parse(self, rua_report):
         root = ET.parse(rua_report)
         records = root.xpath(
@@ -20,6 +23,9 @@ class DMARCRuaParser():
         for record in records:
             row = record[0]
             source_ip = row[0].text
+
+            source_host = self.dns.reverse_name(source_ip)
+
             dmarc_policy_evalution = row[2]
             dmarc_disposition = dmarc_policy_evalution[0].text
             dkim_align = dmarc_policy_evalution[1].text
@@ -44,7 +50,8 @@ class DMARCRuaParser():
                        ), '')
 
             data.append([
-                source_ip, payload_from, envelop_from,
+                source_ip, source_host,
+                payload_from, envelop_from,
                 dmarc_disposition,
                 dkim_align, dkim_auth, spf_align, spf_auth
             ])

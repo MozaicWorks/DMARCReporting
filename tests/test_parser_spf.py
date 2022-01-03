@@ -35,7 +35,15 @@ def not_authenticated():
         """)
 
 
+class DNSStub:
+    def reverse_name(self, ipv4):
+        return "mail.email.com"
+
+
 def test_when_spf_not_authenticated(not_authenticated):
-    sut = DMARCRuaParser()
+    sut = DMARCRuaParser(DNSStub())
     actual = sut.parse(not_authenticated)
-    assert [["201.81.220.40", "email.com", "example.com", "none", "pass", "pass", "pass", "fail"]] == actual
+    expected = [
+        ["201.81.220.40", "mail.email.com", "email.com", "example.com", "none", "pass", "pass", "pass", "fail"]
+    ]
+    assert expected == actual
