@@ -17,7 +17,7 @@ setup(
     url="https://github.com/MozaicWorks/DMARCReporting",
     author="Mozaic Works",
     author_email="alex.bolboaca@mozaicworks.com",
-    license="LICENSE",
+    license="MIT",
     classifiers=[
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3"
