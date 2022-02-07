@@ -8,6 +8,7 @@ class DecompressorFactory():
             return GZipDecompressor()
         if file_path.endswith(".zip"):
             return ZipDecompressor()
+        raise NotImplementedError(file_path)
 
 
 class GZipDecompressor():

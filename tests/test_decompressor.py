@@ -1,3 +1,5 @@
+import pytest
+
 from .context import DMARCReporting  # noqa F401
 from DMARCReporting.decompressor import DecompressorFactory
 from DMARCReporting.decompressor import GZipDecompressor
@@ -16,6 +18,13 @@ def test_factory_return_zip_decompressor():
     actual = sut.create("./tests/data/sample.txt.zip")
 
     assert "ZipDecompressor" == type(actual).__name__
+
+
+def test_factory_raises_not_implemented():
+    sut = DecompressorFactory
+
+    with pytest.raises(NotImplementedError):
+        sut.create("./tests/data/sample.txt")
 
 
 def test_decompress_gzip():
