@@ -5,13 +5,13 @@ from .context import DMARCReporting  # noqa F401
 from DMARCReporting.cli import CLI
 
 
-def test_render_when_data():
+def test_render():
     try:
         output = io.StringIO()
         sys.stdout = output
 
         cli = CLI()
-        cli.execute("./data")
+        cli.execute("./samples")
 
         expected = (
             "\n"
