@@ -15,7 +15,7 @@ def test_render():
 
         expected = (
             "\n"
-            "report.xml\n"
+            "report.xml.gz\n"
             "Source IP      Source Host                     Payload From (From:)    Envelop From (MAIL FROM)    DMARC    DKIM Align    DKIM Auth    SPF Align    SPF Auth\n"  # noqa E501
             "-------------  ------------------------------  ----------------------  --------------------------  -------  ------------  -----------  -----------  ----------\n"  # noqa E501
             "80.96.161.193  Unknown host                    bellous.com             bellous.com                 none     pass          pass         fail         fail\n"  # noqa E501
