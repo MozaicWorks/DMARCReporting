@@ -10,7 +10,7 @@ README = (HERE / "README.md").read_text()
 # This call to setup() does all the work
 setup(
     name="DMARCReporting",
-    version="0.1.0",
+    version="0.1.1",
     description="Simple tool to extract error reports from DMARC files",
     long_description=README,
     long_description_content_type="text/markdown",
@@ -25,5 +25,9 @@ setup(
     packages=find_packages(exclude=("tests",)),
     install_requires=["lxml", "tabulate"],
     python_requires='>=3.8',
-    scripts=["bin/DMARCReporting"],
+    entry_points={
+        'console_scripts': [
+            'DMARCReporting=DMARCReporting:main',
+        ],
+    },
 )

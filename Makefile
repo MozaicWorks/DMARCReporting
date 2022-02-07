@@ -1,8 +1,11 @@
 .DEFAULT_GOAL := help
-.PHONY: help install install-dev install-build lint test dist
+.PHONY: help clean install install-dev install-build lint test dist
 
 help: ## Print the help documentation
 	@grep -h -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+
+clean:
+	rm -rf ./dist ./build ./DMARCReporting.egg-info
 
 install: ## Install runtime dependencies
 	pip install --upgrade pip
@@ -20,7 +23,7 @@ lint: ## Check compliance with the style guide
 test: lint ## Run unit tests
 	pytest -vv
 
-dist: ## Creates a source distribution and wheel distribution
+dist: clean ## Creates a source distribution and wheel distribution
 	python setup.py sdist bdist_wheel
 	twine check ./dist/*
 	check-wheel-contents dist/*.whl
