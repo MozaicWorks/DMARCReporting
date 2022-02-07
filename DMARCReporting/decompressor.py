@@ -6,6 +6,8 @@ class DecompressorFactory():
     def create(file_path):
         if file_path.endswith(".gz"):
             return GZipDecompressor()
+        if file_path.endswith(".zip"):
+            return ZipDecompressor()
 
 
 class GZipDecompressor():

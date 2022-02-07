@@ -11,6 +11,13 @@ def test_factory_return_gzip_decompressor():
     assert "GZipDecompressor" == type(actual).__name__
 
 
+def test_factory_return_zip_decompressor():
+    sut = DecompressorFactory
+    actual = sut.create("./tests/data/sample.txt.zip")
+
+    assert "ZipDecompressor" == type(actual).__name__
+
+
 def test_decompress_gzip():
     sut = GZipDecompressor()
     actual = sut.decompress("./tests/data/sample.txt.gz")

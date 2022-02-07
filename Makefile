@@ -14,4 +14,4 @@ lint: ## Check compliance with the style guide
 	flake8
 
 test: lint ## Run unit tests
-	pytest
+	pytest -vv
