@@ -1,4 +1,4 @@
-# DMARCReporting
+# DMARCReporting ![Build Status](https://github.com/mozaicworks/DMARCReporting/actions/workflows/build.yml/badge.svg?event=push)
 
 This is a simple tool that displays the errors from a bunch of DMARC reports. It's meant to simplify the job of figuring out DMARC errors.
 
