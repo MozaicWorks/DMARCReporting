@@ -4,13 +4,19 @@ This is a simple tool that displays the errors from a bunch of DMARC reports. It
 
 This is very much a work in progress, use only for tests! Feedback and pull requests are welcome.
 
+## Install
+
+```bash
+pip install DMARCReporting
+```
+
 ## How to use
 
 * Download all zipped DMARC reports to a `samples` folder
 * Execute:
   
   ```bash
-  ./bin/DMARCReporting /path/to/samples
+  DMARCReporting /path/to/samples
   ```
 
 The tool processes the files one by one:
@@ -33,6 +39,13 @@ Source IP      Source Host                     Payload From (From:)    Envelop F
 -------------  ------------------------------  ----------------------  --------------------------  -------  ------------  -----------  -----------  ----------
 80.96.161.193  Unknown host                    disicious.com           disicious.com               none     pass          pass         fail         fail
 208.90.221.45  208-90-221-45.static.flhsi.com  disicious.com           calendar.trumbee.com        none     pass          pass         fail         pass
+```
+
+## Run tests
+
+```bash
+make install-dev
+make test
 ```
 
 ## Development Notes
