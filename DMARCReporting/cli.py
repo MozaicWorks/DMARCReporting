@@ -12,9 +12,9 @@ from DMARCReporting.dns import DNS
 
 class CLI():
     def execute(self, input_dir):
-        files = [
+        files = sorted([
             f for f in listdir(input_dir) if isfile(join(input_dir, f))
-        ]
+        ])
 
         parser = DMARCRuaParser(DNS())
         renderer = ConsoleRenderer()
