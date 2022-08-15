@@ -55,3 +55,5 @@ This tool was started by [Alex Bolboaca](https://twitter.com/alexboly), with a c
 The main goal is to see a report of email failures to allow investigation. Therefore, this tool should be minimalistic, extracting the minimum necessary information and requiring a minimum infrastructure.
 
 While it's possible to deploy it as a cloud function through a later development of a Docker container, it should also allow running it locally after obtaining the DMARC zipped reports in some way.
+
+The current version has been developed mostly by [Thierry de Pauw](https://twitter.com/tdpauw), so all thanks should go to him :).
