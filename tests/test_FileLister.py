@@ -14,6 +14,7 @@ class TestFileLister(unittest.TestCase):
            ("single_gzip_file", ["1.gz"], ["1.gz"]),
            ("two_gzip_files", ["1.gz", "2.gz"], ["1.gz", "2.gz"]),
            ("sort_files", ["2.gz", "z.zip", "1.gz", "a.zip"], ["1.gz", "2.gz", "a.zip", "z.zip"]),
+           ("only_gz_and_zip_files", ["z.zip", "1.gz", "3.txt", "ttt.jpg"], ["1.gz", "z.zip"]),
        ])
     def test_file_lister(self, name, filesList, expected):
         def listerFunction(dirName): return FileLister().list(dirName)
