@@ -6,3 +6,4 @@ build/
 # Python
 *.pyc
 __pycache__
+*.sw?
