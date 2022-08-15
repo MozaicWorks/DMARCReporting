@@ -13,6 +13,7 @@ class TestFileLister(unittest.TestCase):
            ("two_zip_files", ["1.zip", "2.zip"], ["1.zip", "2.zip"]),
            ("single_gzip_file", ["1.gz"], ["1.gz"]),
            ("two_gzip_files", ["1.gz", "2.gz"], ["1.gz", "2.gz"]),
+           ("two_tar_gz_files", ["1.tar.gz", "2.tar.gz"], ["1.tar.gz", "2.tar.gz"]),
            ("sort_files", ["2.gz", "z.zip", "1.gz", "a.zip"], ["1.gz", "2.gz", "a.zip", "z.zip"]),
            ("only_gz_and_zip_files", ["z.zip", "1.gz", "3.txt", "ttt.jpg"], ["1.gz", "z.zip"]),
        ])
