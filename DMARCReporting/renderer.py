@@ -1,5 +1,7 @@
+import csv
 
 from tabulate import tabulate
+from .constants import headers
 
 
 class ConsoleRenderer:
@@ -7,16 +9,12 @@ class ConsoleRenderer:
         if len(data) == 0:
             return
 
-        print()
-        print(file)
-        print(tabulate(data, headers=[
-            "Source IP",
-            "Source Host",
-            "Payload From (From:)",
-            "Envelop From (MAIL FROM)",
-            "DMARC",
-            "DKIM Align",
-            "DKIM Auth",
-            "SPF Align",
-            "SPF Auth"
-        ]))
+        print(tabulate(data, headers=headers))
+
+
+class CSVRenderer:
+    def render(self, file, data):
+        with open(file, 'w') as outfile:
+            writer = csv.writer(outfile)
+            writer.writerow(headers)
+            writer.writerows(data)
