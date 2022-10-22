@@ -1,9 +1,12 @@
 
 dist/
 build/
-*.egg-info/
 
 # Python
 *.pyc
 __pycache__
 *.sw?
+*.egg-info/
+
+# VSCode
+.vscode/
