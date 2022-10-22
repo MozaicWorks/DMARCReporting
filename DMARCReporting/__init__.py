@@ -1,7 +1,6 @@
 __version__ = "0.1.1"
 
 import argparse
-import sys
 from DMARCReporting.cli import CLI
 
 
