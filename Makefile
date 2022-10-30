@@ -40,3 +40,8 @@ dist: clean ## Creates a source distribution and wheel distribution
 	python setup.py sdist bdist_wheel
 	twine check ./dist/*
 	check-wheel-contents dist/*.whl
+
+tag:
+	if [[ -z "${version}" ]]; then echo "version must be set";false; fi
+	git tag -a $(version) -m "Bump version $(version)"
+	git push origin master --follow-tags
