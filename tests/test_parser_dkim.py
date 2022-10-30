@@ -33,7 +33,8 @@ def not_authenticated():
                 </auth_results>
             </record>
         </feedback>
-        """)
+        """
+    )
 
 
 class DNSStub:
@@ -44,7 +45,20 @@ class DNSStub:
 def test_when_not_authenticated(not_authenticated):
     sut = DMARCRuaParser(DNSStub())
     actual = sut.parse(not_authenticated)
-    expected = [["201.81.220.40", "mail.email.com",  "email.com", "", "none", "pass", "fail", "pass", "pass"]]
+    expected = [
+        [
+            "201.81.220.40",
+            "mail.email.com",
+            "email.com",
+            "",
+            "none",
+            "pass",
+            "fail",
+            "pass",
+            "pass",
+            1,
+        ]
+    ]
     assert expected == actual
 
 
@@ -80,11 +94,25 @@ def authenticated_two_records():
                 </auth_results>
             </record>
         </feedback>
-        """)
+        """
+    )
 
 
 def test_when_not_authenticated_having_two_records(authenticated_two_records):
     sut = DMARCRuaParser(DNSStub())
     actual = sut.parse(authenticated_two_records)
-    expected = [["201.81.220.40", "mail.email.com", "email.com", "", "none", "pass", "fail", "pass", "pass"]]
+    expected = [
+        [
+            "201.81.220.40",
+            "mail.email.com",
+            "email.com",
+            "",
+            "none",
+            "pass",
+            "fail",
+            "pass",
+            "pass",
+            1,
+        ]
+    ]
     assert expected == actual
