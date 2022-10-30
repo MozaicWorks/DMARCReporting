@@ -17,6 +17,15 @@ install-dev: install ## Install development dependencies
 install-build: ## Install build dependencies
 	pip install -r requirements-build.txt
 
+uninstall: ## Uninstall runtime dependencies
+	pip uninstall -r requirements.txt
+
+uninstall-dev: ## Uninstall development dependencies
+	pip uninstall -r requirements-dev.txt
+
+uninstall-build: ## Uninstall build dependencies
+	pip uninstall -r requirements-build.txt
+
 lint: ## Check compliance with the style guide
 	flake8
 
