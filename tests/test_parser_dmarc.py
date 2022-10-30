@@ -36,17 +36,15 @@ def rua_report(disposition="none", spf_aligned="pass", dkim_aligned="pass"):
                 </auth_results>
             </record>
         </feedback>
-        """.format(disposition=disposition,
-                   spf_aligned=spf_aligned, dkim_aligned=dkim_aligned))
+        """.format(
+            disposition=disposition, spf_aligned=spf_aligned, dkim_aligned=dkim_aligned
+        )
+    )
 
 
 @pytest.fixture
 def rua_report_quarantine():
-    return rua_report(
-        disposition="quarantine",
-        spf_aligned="fail",
-        dkim_aligned="fail"
-    )
+    return rua_report(disposition="quarantine", spf_aligned="fail", dkim_aligned="fail")
 
 
 @pytest.fixture
@@ -56,11 +54,7 @@ def rua_report_none():
 
 @pytest.fixture
 def rua_report_reject():
-    return rua_report(
-        disposition="reject",
-        spf_aligned="fail",
-        dkim_aligned="fail"
-    )
+    return rua_report(disposition="reject", spf_aligned="fail", dkim_aligned="fail")
 
 
 @pytest.fixture
@@ -87,7 +81,18 @@ def test_when_dmarc_disposition_quarantine(rua_report_quarantine):
     sut = DMARCRuaParser(DNSStub())
     actual = sut.parse(rua_report_quarantine)
     expected = [
-        ["101.0.122.38", "mail.email.com", "email.com", "example.com", "quarantine", "fail", "pass", "fail", "pass"]
+        [
+            "101.0.122.38",
+            "mail.email.com",
+            "email.com",
+            "example.com",
+            "quarantine",
+            "fail",
+            "pass",
+            "fail",
+            "pass",
+            1,
+        ]
     ]
     assert expected == actual
 
@@ -102,7 +107,18 @@ def test_when_dmarc_disposition_reject(rua_report_reject):
     sut = DMARCRuaParser(DNSStub())
     actual = sut.parse(rua_report_reject)
     expected = [
-        ["101.0.122.38", "mail.email.com", "email.com", "example.com", "reject", "fail", "pass", "fail", "pass"]
+        [
+            "101.0.122.38",
+            "mail.email.com",
+            "email.com",
+            "example.com",
+            "reject",
+            "fail",
+            "pass",
+            "fail",
+            "pass",
+            1,
+        ]
     ]
     assert expected == actual
 
@@ -116,12 +132,38 @@ def test_when_spf_and_dkim_aligned(rua_report_spf_and_dkim_aligned):
 def test_when_spf_not_aligned(rua_report_spf_not_aligned):
     sut = DMARCRuaParser(DNSStub())
     actual = sut.parse(rua_report_spf_not_aligned)
-    expected = [["101.0.122.38", "mail.email.com", "email.com", "example.com", "none", "pass", "pass", "fail", "pass"]]
+    expected = [
+        [
+            "101.0.122.38",
+            "mail.email.com",
+            "email.com",
+            "example.com",
+            "none",
+            "pass",
+            "pass",
+            "fail",
+            "pass",
+            1,
+        ]
+    ]
     assert expected == actual
 
 
 def test_when_dkim_not_aligned(rua_report_dkim_not_aligned):
     sut = DMARCRuaParser(DNSStub())
     actual = sut.parse(rua_report_dkim_not_aligned)
-    expected = [["101.0.122.38", "mail.email.com", "email.com", "example.com", "none", "fail", "pass", "pass", "pass"]]
+    expected = [
+        [
+            "101.0.122.38",
+            "mail.email.com",
+            "email.com",
+            "example.com",
+            "none",
+            "fail",
+            "pass",
+            "pass",
+            "pass",
+            1,
+        ]
+    ]
     assert expected == actual
