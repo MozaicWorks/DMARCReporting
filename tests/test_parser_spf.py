@@ -32,7 +32,8 @@ def not_authenticated():
                 </auth_results>
             </record>
         </feedback>
-        """)
+        """
+    )
 
 
 class DNSStub:
@@ -44,6 +45,17 @@ def test_when_spf_not_authenticated(not_authenticated):
     sut = DMARCRuaParser(DNSStub())
     actual = sut.parse(not_authenticated)
     expected = [
-        ["201.81.220.40", "mail.email.com", "email.com", "example.com", "none", "pass", "pass", "pass", "fail"]
+        [
+            "201.81.220.40",
+            "mail.email.com",
+            "email.com",
+            "example.com",
+            "none",
+            "pass",
+            "pass",
+            "pass",
+            "fail",
+            1,
+        ]
     ]
     assert expected == actual
