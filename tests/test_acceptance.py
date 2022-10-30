@@ -1,11 +1,19 @@
 import io
 import sys
+from unittest.mock import patch
 
 from .context import DMARCReporting  # noqa F401
 from DMARCReporting.cli import CLI
 
 
-def test_render():
+@patch('socket.gethostbyaddr')
+def test_render(gethostbyaddr_mock):
+    gethostbyaddr_mock.side_effect = [
+        ("Unknown host", [], []),
+        ("208-90-221-45.static.flhsi.com", [], []),
+        ("Unknown host", [], []),
+        ("208-90-221-45.static.flhsi.com", [], []),
+    ]
     try:
         output = io.StringIO()
         sys.stdout = output
