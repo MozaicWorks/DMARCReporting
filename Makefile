@@ -8,23 +8,16 @@ clean:
 	rm -rf ./dist ./build ./DMARCReporting.egg-info
 
 install: ## Install runtime dependencies
-	pip install --upgrade pip
-	pip install -r requirements.txt
+	pipenv install --deploy
 
 install-dev: install ## Install development dependencies
-	pip install -r requirements-dev.txt
-
-install-build: ## Install build dependencies
-	pip install -r requirements-build.txt
+	pipenv install --deploy --dev
 
 uninstall: ## Uninstall runtime dependencies
-	pip uninstall -r requirements.txt
+	pipenv uninstall --all
 
 uninstall-dev: ## Uninstall development dependencies
-	pip uninstall -r requirements-dev.txt
-
-uninstall-build: ## Uninstall build dependencies
-	pip uninstall -r requirements-build.txt
+	pipenv uninstall --all-dev
 
 lint: ## Check compliance with the style guide
 	flake8
@@ -34,12 +27,12 @@ reformat: ## Reformat source and test code using black
 	black --skip-string-normalization tests
 
 test: lint ## Run unit tests
-	pytest -vv
+	pipenv run pytest -vv
 
 dist: clean ## Creates a source distribution and wheel distribution
-	python setup.py sdist bdist_wheel
-	twine check ./dist/*
-	check-wheel-contents dist/*.whl
+	pipenv run python setup.py sdist bdist_wheel
+	pipenv run twine check ./dist/*
+	pipenv run check-wheel-contents dist/*.whl
 
 tag:
 	if [[ -z "${version}" ]]; then echo "version must be set";false; fi

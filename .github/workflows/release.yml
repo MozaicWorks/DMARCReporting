@@ -16,7 +16,7 @@ jobs:
         with:
           python-version: '3.10'
       - name: Install
-        run: make install-build
+        run: make install-dev
       - name: Build
         run: make dist
       - name: Publish to PyPI

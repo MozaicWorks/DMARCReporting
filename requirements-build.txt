@@ -1,4 +1,0 @@
-setuptools
-wheel
-twine
-check-wheel-contents

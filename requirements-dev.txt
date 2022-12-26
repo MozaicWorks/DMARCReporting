@@ -1,4 +1,0 @@
-flake8
-pytest
-parameterized
-black
