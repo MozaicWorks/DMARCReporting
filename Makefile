@@ -20,11 +20,11 @@ uninstall-dev: ## Uninstall development dependencies
 	pipenv uninstall --all-dev
 
 lint: ## Check compliance with the style guide
-	flake8
+	pipenv run flake8
 
 reformat: ## Reformat source and test code using black
-	black --skip-string-normalization DMARCReporting
-	black --skip-string-normalization tests
+	pipenv run black --skip-string-normalization DMARCReporting
+	pipenv run black --skip-string-normalization tests
 
 test: lint ## Run unit tests
 	pipenv run pytest -vv
