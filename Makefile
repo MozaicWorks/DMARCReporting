@@ -34,7 +34,7 @@ dist: clean ## Creates a source distribution and wheel distribution
 	pipenv run twine check ./dist/*
 	pipenv run check-wheel-contents dist/*.whl
 
-tag:
+tag: ## Tag version
 	if [[ -z "${version}" ]]; then echo "version must be set";false; fi
 	git tag -a $(version) -m "Bump version $(version)"
 	git push origin master --follow-tags
