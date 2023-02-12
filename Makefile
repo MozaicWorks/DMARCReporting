@@ -13,6 +13,9 @@ install: ## Install runtime dependencies
 install-dev: install ## Install development dependencies
 	pipenv install --deploy --dev
 
+install-build: ## Install build dependencies
+	pipenv install --deploy --categories="build"
+
 uninstall: ## Uninstall runtime dependencies
 	pipenv uninstall --all
 

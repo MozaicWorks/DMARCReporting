@@ -13,6 +13,8 @@ pytest = "*"
 parameterized = "*"
 black = "*"
 setuptools = "*"
+
+[build]
 wheel = "*"
 twine = "*"
 check-wheel-contents = "*"

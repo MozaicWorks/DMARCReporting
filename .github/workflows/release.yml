@@ -18,7 +18,7 @@ jobs:
       - name: Install pipenv
         run: pip install pipenv
       - name: Install
-        run: make install-dev
+        run: make install-build
       - name: Build
         run: make dist
       - name: Publish to PyPI
