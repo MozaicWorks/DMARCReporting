@@ -23,44 +23,21 @@ class DMARCRuaParser:
         for record in records:
             row = self._parse_row(record)
 
-            auth_results = record.xpath('./auth_results')[0]
-            dkim_auth = next(
-                filter(
-                    lambda result: result != "pass",
-                    map(
-                        lambda result: result.text, auth_results.xpath("./dkim/result")
-                    ),
-                ),
-                "pass",
-            )
-            spf_auth = next(
-                filter(
-                    lambda result: result != "pass",
-                    map(lambda result: result.text, auth_results.xpath("./spf/result")),
-                ),
-                "pass",
-            )
-
             payload_from = self._get_payload_from(record)
-            envelop_from = next(
-                filter(
-                    lambda result: result,
-                    map(lambda result: result.text, auth_results.xpath("./spf/domain")),
-                ),
-                "",
-            )
+
+            auth_results = self._parse_auth_results(record)
 
             data.append(
                 [
                     row["source_ip"],
                     row["source_host"],
                     payload_from,
-                    envelop_from,
+                    auth_results["envelop_from"],
                     row["dmarc_policy_evaluation"]["dmarc_disposition"],
                     row["dmarc_policy_evaluation"]["dkim_align"],
-                    dkim_auth,
+                    auth_results["dkim_auth"],
                     row["dmarc_policy_evaluation"]["spf_align"],
-                    spf_auth,
+                    auth_results["spf_auth"],
                     row["count"],
                 ]
             )
@@ -92,3 +69,34 @@ class DMARCRuaParser:
         identifiers = record.xpath('./identifiers')[0]
         header_from = identifiers.xpath('./header_from')[0]
         return header_from.text
+
+    def _parse_auth_results(self, record):
+        results = {}
+
+        auth_results = record.xpath('./auth_results')[0]
+        results["dkim_auth"] = next(
+            filter(
+                lambda result: result != "pass",
+                map(
+                    lambda result: result.text, auth_results.xpath("./dkim/result")
+                ),
+            ),
+            "pass",
+        )
+        results["spf_auth"] = next(
+            filter(
+                lambda result: result != "pass",
+                map(lambda result: result.text, auth_results.xpath("./spf/result")),
+            ),
+            "pass",
+        )
+
+        results["envelop_from"] = next(
+            filter(
+                lambda result: result,
+                map(lambda result: result.text, auth_results.xpath("./spf/domain")),
+            ),
+            "",
+        )
+
+        return results
