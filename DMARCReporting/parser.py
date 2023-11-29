@@ -21,16 +21,7 @@ class DMARCRuaParser:
         records = root.xpath(xpath_all if include_all else xpath_failed)
         data = []
         for record in records:
-            row = record[0]
-            source_ip = row[0].text
-            count = int(row[1].text)
-
-            source_host = self.dns.reverse_name(source_ip)
-
-            dmarc_policy_evalution = row[2]
-            dmarc_disposition = dmarc_policy_evalution[0].text
-            dkim_align = dmarc_policy_evalution[1].text
-            spf_align = dmarc_policy_evalution[2].text
+            row = self._parse_row(record)
 
             auth_results = record[2]
             dkim_auth = next(
@@ -61,19 +52,41 @@ class DMARCRuaParser:
 
             data.append(
                 [
-                    source_ip,
-                    source_host,
+                    row["source_ip"],
+                    row["source_host"],
                     payload_from,
                     envelop_from,
-                    dmarc_disposition,
-                    dkim_align,
+                    row["dmarc_policy_evaluation"]["dmarc_disposition"],
+                    row["dmarc_policy_evaluation"]["dkim_align"],
                     dkim_auth,
-                    spf_align,
+                    row["dmarc_policy_evaluation"]["spf_align"],
                     spf_auth,
-                    count,
+                    row["count"],
                 ]
             )
         return data
+
+    def _parse_row(self, record):
+        result = {}
+
+        row = record.xpath("./row")[0]
+        result["count"] = int(row.xpath("./count/text()")[0])
+        source_ip = row.xpath("./source_ip/text()")[0]
+        result["source_host"] = self.dns.reverse_name(source_ip)
+        result["source_ip"] = source_ip
+        policy_evaluated = row.xpath('./policy_evaluated')[0]
+        result["dmarc_policy_evaluation"] = self._parse_dmarc_policy_evaluation(policy_evaluated)
+
+        return result
+
+    def _parse_dmarc_policy_evaluation(self, policy_evalution):
+        result = {}
+
+        result["dmarc_disposition"] = policy_evalution.xpath("./disposition/text()")[0]
+        result["dkim_align"] = policy_evalution.xpath("./dkim/text()")[0]
+        result["spf_align"] = policy_evalution.xpath("./spf/text()")[0]
+
+        return result
 
     def _get_payload_from(self, record):
         identifiers = record.xpath('./identifiers')[0]
