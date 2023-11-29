@@ -23,6 +23,8 @@ def not_authenticated():
                 </row>
                 <identifiers>
                 <header_from>email.com</header_from>
+                <envelope_to>recipient.org</envelope_to>
+                <envelope_from>sender.org</envelope_from>
                 </identifiers>
                 <auth_results>
                     <dkim>
@@ -79,6 +81,8 @@ def authenticated_two_records():
                 </row>
                 <identifiers>
                 <header_from>email.com</header_from>
+                <envelope_to>recipient.org</envelope_to>
+                <envelope_from>sender.org</envelope_from>
                 </identifiers>
                 <auth_results>
                     <dkim>

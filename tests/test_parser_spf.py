@@ -22,6 +22,8 @@ def not_authenticated():
                 </policy_evaluated>
                 </row>
                 <identifiers>
+                <envelope_to>recipient.org</envelope_to>
+                <envelope_from>sender.org</envelope_from>
                 <header_from>email.com</header_from>
                 </identifiers>
                 <auth_results>
