@@ -50,8 +50,7 @@ class DMARCRuaParser:
                 "pass",
             )
 
-            identifiers = record[1]
-            payload_from = identifiers[0].text
+            payload_from = self._get_payload_from(record)
             envelop_from = next(
                 filter(
                     lambda result: result,
@@ -75,3 +74,8 @@ class DMARCRuaParser:
                 ]
             )
         return data
+
+    def _get_payload_from(self, record):
+        identifiers = record.xpath('./identifiers')[0]
+        header_from = identifiers.xpath('./header_from')[0]
+        return header_from.text
