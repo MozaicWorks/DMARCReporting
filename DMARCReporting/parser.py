@@ -23,7 +23,7 @@ class DMARCRuaParser:
         for record in records:
             row = self._parse_row(record)
 
-            auth_results = record[2]
+            auth_results = record.xpath('./auth_results')[0]
             dkim_auth = next(
                 filter(
                     lambda result: result != "pass",
