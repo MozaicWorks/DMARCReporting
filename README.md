@@ -29,16 +29,12 @@ An example report looks as follows:
 
 ```plain
 report.xml.gz
-Source IP      Source Host                     Payload From (From:)    Envelop From (MAIL FROM)    DMARC    DKIM Align    DKIM Auth    SPF Align    SPF Auth
--------------  ------------------------------  ----------------------  --------------------------  -------  ------------  -----------  -----------  ----------
-80.96.161.193  Unknown host                    bellous.com             bellous.com                 none     pass          pass         fail         fail
-208.90.221.45  208-90-221-45.static.flhsi.com  bellous.com             calendar.yambo.com          none     pass          pass         fail         pass
-
-report.xml.zip
-Source IP      Source Host                     Payload From (From:)    Envelop From (MAIL FROM)    DMARC    DKIM Align    DKIM Auth    SPF Align    SPF Auth
--------------  ------------------------------  ----------------------  --------------------------  -------  ------------  -----------  -----------  ----------
-80.96.161.193  Unknown host                    disicious.com           disicious.com               none     pass          pass         fail         fail
-208.90.221.45  208-90-221-45.static.flhsi.com  disicious.com           calendar.trumbee.com        none     pass          pass         fail         pass
+Source IP      Source Host                     Payload From (From:)    Envelop From (MAIL FROM)    DMARC    DKIM Align    DKIM Auth    SPF Align    SPF Auth    File
+-------------  ------------------------------  ----------------------  --------------------------  -------  ------------  -----------  -----------  ----------  ------
+80.96.161.193  Unknown host                    bellous.com             bellous.com                 none     pass          pass         fail         fail        report.xml.gz
+208.90.221.45  208-90-221-45.static.flhsi.com  bellous.com             calendar.yambo.com          none     pass          pass         fail         pass        report.xml.gz
+80.96.161.193  Unknown host                    disicious.com           disicious.com               none     pass          pass         fail         fail        report.xml.zip
+208.90.221.45  208-90-221-45.static.flhsi.com  disicious.com           calendar.trumbee.com        none     pass          pass         fail         pass        report.xml.zip
 ```
 
 ## Run tests
