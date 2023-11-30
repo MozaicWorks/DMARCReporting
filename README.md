@@ -16,7 +16,7 @@ pip install DMARCReporting
 * Execute:
   
   ```bash
-  DMARCReporting /path/to/samples
+  DMARCReporting /path/to/reports
   ```
 
 The tool processes the files one by one:
