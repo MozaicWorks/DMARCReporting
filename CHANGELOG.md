@@ -1,3 +1,7 @@
+## 0.2.1 (30 November 2023)
+
+Fixed the incorrect reporting due to XML tag ordering ([#19](https://github.com/MozaicWorks/DMARCReporting/issues/19) reported by [@yaiqsa](https://github.com/yaiqsa)). Instead of positional tag parsing we now rely on xpath to parse the DMARC RUA XML reports.
+
 ## 0.2.0 (31 October 2022)
 
 Summarising report in one large table with an extra column for the report file name ([#15](https://github.com/MozaicWorks/DMARCReporting/pull/15) by [@beda42](https://github.com/beda42)).
