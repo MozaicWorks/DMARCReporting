@@ -52,4 +52,4 @@ The main goal is to see a report of email failures to allow investigation. There
 
 While it's possible to deploy it as a cloud function through a later development of a Docker container, it should also allow running it locally after obtaining the DMARC zipped reports in some way.
 
-The current version has been developed mostly by [Thierry de Pauw](https://twitter.com/tdpauw), so all thanks should go to him :).
+The current version has been developed mostly by [Thierry de Pauw](https://mastodon.social/@tdpauw), so all thanks should go to him :).
