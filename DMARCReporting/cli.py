@@ -6,7 +6,7 @@ from DMARCReporting.decompressor import DecompressorFactory
 from DMARCReporting.parser import DMARCRuaParser
 from DMARCReporting.renderer import ConsoleRenderer, CSVRenderer
 from DMARCReporting.dns import DNS
-from DMARCReporting.FileLister import FileLister
+from DMARCReporting.filelister import FileLister
 
 
 class CLI():

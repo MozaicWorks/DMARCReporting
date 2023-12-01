@@ -1,7 +1,7 @@
 
 import unittest
 from .context import DMARCReporting  # noqa F401
-from DMARCReporting.FileLister import FileLister
+from DMARCReporting.filelister import FileLister
 import tempfile
 import os
 from parameterized import parameterized
