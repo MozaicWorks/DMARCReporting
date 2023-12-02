@@ -38,6 +38,6 @@ dist: clean ## Creates a source distribution and wheel distribution
 	pipenv run check-wheel-contents dist/*.whl
 
 tag: ## Tag version
-	if [[ -z "${version}" ]]; then echo "version must be set";false; fi
+	$(eval version := $(shell head -n 1 DMARCReporting/__init__.py | sed -e "s/__version__ = //" | sed -e "s/\"//g"))
 	git tag -a $(version) -m "Bump version $(version)"
 	git push origin master --follow-tags
