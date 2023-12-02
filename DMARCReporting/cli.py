@@ -14,7 +14,6 @@ class CLI():
         files = FileLister().list(input_dir)
 
         parser = DMARCRuaParser(DNS())
-        renderer = ConsoleRenderer()
         all_data = []
 
         for file in files:
@@ -22,6 +21,8 @@ class CLI():
             report = DecompressorFactory.create(file_path).decompress(file_path)
             data = parser.parse(io.BytesIO(report), include_all=show_all)
             all_data += [[*row, file] for row in data]
+
+        renderer = ConsoleRenderer()
         renderer.render("All", all_data)
 
         if csv_output_file:
