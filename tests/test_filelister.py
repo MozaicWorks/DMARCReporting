@@ -1,9 +1,11 @@
-
 import unittest
-from .context import DMARCReporting  # noqa F401
-from DMARCReporting.filelister import FileLister
 import tempfile
 import os
+from os.path import join
+
+from .context import DMARCReporting  # noqa F401
+from DMARCReporting.filelister import FileLister
+
 from parameterized import parameterized
 
 
@@ -20,9 +22,14 @@ class TestFileLister(unittest.TestCase):
     def test_file_lister(self, name, filesList, expected):
         def listerFunction(dirName): return FileLister().list(dirName)
 
-        actual = self.list_files_with_function(filesList, listerFunction)
+        with tempfile.TemporaryDirectory() as testDir:
+            [self.create_test_file(testDir, fileName) for fileName in filesList]
+            actual = listerFunction(testDir)
+        # actual = self.list_files_with_function(filesList, listerFunction)
 
-        self.assertListEqual(expected, actual)
+            expected = [join(testDir, f) for f in expected]
+
+            self.assertListEqual(expected, actual)
 
     def create_test_file(self, path, filename):
         with open(os.path.join(path, filename), 'w'):

@@ -23,11 +23,11 @@ def test_render(gethostbyaddr_mock):
 
         expected = (
             "Source IP      Source Host                     Payload From (From:)    Envelop From (MAIL FROM)    DMARC    DKIM Align    DKIM Auth    SPF Align    SPF Auth      Count  File\n"  # noqa E501
-            "-------------  ------------------------------  ----------------------  --------------------------  -------  ------------  -----------  -----------  ----------  -------  --------------\n"  # noqa E501
-            "80.96.161.193  Unknown host                    bellous.com             bellous.com                 none     pass          pass         fail         fail              3  report.xml.gz\n"  # noqa E501
-            "208.90.221.45  208-90-221-45.static.flhsi.com  bellous.com             calendar.yambo.com          none     pass          pass         fail         pass             32  report.xml.gz\n"  # noqa E501
-            "80.96.161.193  Unknown host                    disicious.com           disicious.com               none     pass          pass         fail         fail              3  report.xml.zip\n"  # noqa E501
-            "208.90.221.45  208-90-221-45.static.flhsi.com  disicious.com           calendar.trumbee.com        none     pass          pass         fail         pass             32  report.xml.zip\n"  # noqa E501
+            "-------------  ------------------------------  ----------------------  --------------------------  -------  ------------  -----------  -----------  ----------  -------  ------------------------\n"  # noqa E501
+            "80.96.161.193  Unknown host                    bellous.com             bellous.com                 none     pass          pass         fail         fail              3  ./samples/report.xml.gz\n"  # noqa E501
+            "208.90.221.45  208-90-221-45.static.flhsi.com  bellous.com             calendar.yambo.com          none     pass          pass         fail         pass             32  ./samples/report.xml.gz\n"  # noqa E501
+            "80.96.161.193  Unknown host                    disicious.com           disicious.com               none     pass          pass         fail         fail              3  ./samples/report.xml.zip\n"  # noqa E501
+            "208.90.221.45  208-90-221-45.static.flhsi.com  disicious.com           calendar.trumbee.com        none     pass          pass         fail         pass             32  ./samples/report.xml.zip\n"  # noqa E501
         )
         actual = output.getvalue()
 

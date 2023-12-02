@@ -1,5 +1,3 @@
-
-from os.path import join
 import io
 
 from DMARCReporting.decompressor import DecompressorFactory
@@ -17,8 +15,7 @@ class CLI():
         all_data = []
 
         for file in files:
-            file_path = join(input_dir, file)
-            report = DecompressorFactory.create(file_path).decompress(file_path)
+            report = DecompressorFactory.create(file).decompress(file)
             data = parser.parse(io.BytesIO(report), include_all=show_all)
             all_data += [[*row, file] for row in data]
 
