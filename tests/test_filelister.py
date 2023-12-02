@@ -19,24 +19,17 @@ class TestFileLister(unittest.TestCase):
            ("sort_files", ["2.gz", "z.zip", "1.gz", "a.zip"], ["1.gz", "2.gz", "a.zip", "z.zip"]),
            ("only_gz_and_zip_files", ["z.zip", "1.gz", "3.txt", "ttt.jpg"], ["1.gz", "z.zip"]),
        ])
-    def test_file_lister(self, name, filesList, expected):
+    def test_file_lister(self, name, filesList, expectedFilesList):
         def listerFunction(dirName): return FileLister().list(dirName)
 
+        # Create temporary directory, temporary files, list them with the lister function, assert, and delete them
         with tempfile.TemporaryDirectory() as testDir:
             [self.create_test_file(testDir, fileName) for fileName in filesList]
             actual = listerFunction(testDir)
-        # actual = self.list_files_with_function(filesList, listerFunction)
-
-            expected = [join(testDir, f) for f in expected]
+            expected = [join(testDir, f) for f in expectedFilesList]
 
             self.assertListEqual(expected, actual)
 
     def create_test_file(self, path, filename):
         with open(os.path.join(path, filename), 'w'):
             pass
-
-    def list_files_with_function(self, filesList, listerFunction):
-        ''' Create temporary directory, temporary files, list them with the lister function, and delete them'''
-        with tempfile.TemporaryDirectory() as testDir:
-            [self.create_test_file(testDir, fileName) for fileName in filesList]
-            return listerFunction(testDir)
