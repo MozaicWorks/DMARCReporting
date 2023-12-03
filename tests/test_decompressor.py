@@ -30,7 +30,6 @@ def test_factory_raises_not_implemented():
 def test_decompress_gzip():
     sut = GZipDecompressor()
     actual = sut.decompress("./tests/data/sample.txt.gz")
-
     assert "Hello world, gzip!" == actual.decode("utf-8")
 
 
@@ -39,3 +38,10 @@ def test_decompress_zip():
     actual = sut.decompress("./tests/data/sample.txt.zip")
 
     assert "Hello world, zip!" == actual.decode("utf-8")
+
+
+def test_decompress_trailing_garbage_gzip():
+    sut = GZipDecompressor()
+    actual = sut.decompress("./tests/data/trailing_garbage.xml.gz")
+    expected = open("./tests/data/trailing_garbage.xml", "r").read()
+    assert expected == actual.decode("utf-8")
