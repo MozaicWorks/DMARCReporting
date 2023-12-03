@@ -1,5 +1,6 @@
 import gzip
 import zipfile
+import zlib
 
 
 class DecompressorFactory():
@@ -13,8 +14,16 @@ class DecompressorFactory():
 
 class GZipDecompressor():
     def decompress(self, gzip_file_path):
-        with gzip.open(gzip_file_path, 'rb') as f:
-            return f.read()
+        try:
+            with gzip.open(gzip_file_path, 'rb') as f:
+                return f.read()
+        except gzip.BadGzipFile:
+            with open(gzip_file_path, 'rb') as f:
+                do = zlib.decompressobj(wbits=31)
+                data = do.decompress(f.read())
+                remainder = do.unused_data
+                f.seek(f.tell() - len(remainder))
+                return data
 
 
 class ZipDecompressor():
