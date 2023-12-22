@@ -23,7 +23,7 @@ uninstall-dev: ## Uninstall development dependencies
 	pipenv uninstall --all-dev
 
 lint: ## Check compliance with the style guide
-	pipenv run flake8
+	pipenv run flake8 ./DMARCReporting ./tests	
 
 format: ## Format source and test code using black
 	pipenv run black --skip-string-normalization DMARCReporting
