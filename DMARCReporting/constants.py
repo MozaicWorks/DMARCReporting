@@ -1,4 +1,6 @@
 headers = [
+    "Begin Date",
+    "End Date",
     "Source IP",
     "Source Host",
     "Payload From (From:)",
