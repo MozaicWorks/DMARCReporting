@@ -10,6 +10,12 @@ def rua_report(disposition="none", spf_aligned="pass", dkim_aligned="pass"):
     return io.StringIO(
         """
         <feedback>
+            <report_metadata>
+                <date_range>
+                    <begin>1703237232</begin>
+                    <end>1703280196</end>
+                </date_range>
+            </report_metadata>
             <record>
                 <row>
                 <source_ip>101.0.122.38</source_ip>
@@ -84,6 +90,8 @@ def test_when_dmarc_disposition_quarantine(rua_report_quarantine):
     actual = sut.parse(rua_report_quarantine)
     expected = [
         [
+            "2023-12-22T10:27:12",
+            "2023-12-22T22:23:16",
             "101.0.122.38",
             "mail.email.com",
             "email.com",
@@ -110,6 +118,8 @@ def test_when_dmarc_disposition_reject(rua_report_reject):
     actual = sut.parse(rua_report_reject)
     expected = [
         [
+            "2023-12-22T10:27:12",
+            "2023-12-22T22:23:16",
             "101.0.122.38",
             "mail.email.com",
             "email.com",
@@ -136,6 +146,8 @@ def test_when_spf_not_aligned(rua_report_spf_not_aligned):
     actual = sut.parse(rua_report_spf_not_aligned)
     expected = [
         [
+            "2023-12-22T10:27:12",
+            "2023-12-22T22:23:16",
             "101.0.122.38",
             "mail.email.com",
             "email.com",
@@ -156,6 +168,8 @@ def test_when_dkim_not_aligned(rua_report_dkim_not_aligned):
     actual = sut.parse(rua_report_dkim_not_aligned)
     expected = [
         [
+            "2023-12-22T10:27:12",
+            "2023-12-22T22:23:16",
             "101.0.122.38",
             "mail.email.com",
             "email.com",

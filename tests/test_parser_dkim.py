@@ -11,6 +11,12 @@ def not_authenticated():
     return io.StringIO(
         """
         <feedback>
+            <report_metadata>
+                <date_range>
+                    <begin>1703237232</begin>
+                    <end>1703280196</end>
+                </date_range>
+            </report_metadata>
             <record>
                 <row>
                 <source_ip>201.81.220.40</source_ip>
@@ -49,6 +55,8 @@ def test_when_not_authenticated(not_authenticated):
     actual = sut.parse(not_authenticated)
     expected = [
         [
+            "2023-12-22T10:27:12",
+            "2023-12-22T22:23:16",
             "201.81.220.40",
             "mail.email.com",
             "email.com",
@@ -69,6 +77,12 @@ def authenticated_two_records():
     return io.StringIO(
         """
         <feedback>
+            <report_metadata>
+                <date_range>
+                    <begin>1703237232</begin>
+                    <end>1703280196</end>
+                </date_range>
+            </report_metadata>
             <record>
                 <row>
                 <source_ip>201.81.220.40</source_ip>
@@ -107,6 +121,8 @@ def test_when_not_authenticated_having_two_records(authenticated_two_records):
     actual = sut.parse(authenticated_two_records)
     expected = [
         [
+            "2023-12-22T10:27:12",
+            "2023-12-22T22:23:16",
             "201.81.220.40",
             "mail.email.com",
             "email.com",

@@ -1,4 +1,5 @@
 from lxml import etree as ET
+from datetime import datetime
 
 xpath_all = ".//record"
 xpath_failed = (
@@ -18,6 +19,9 @@ class DMARCRuaParser:
 
     def parse(self, rua_report, include_all=False):
         root = ET.parse(rua_report)
+
+        dates = self._parse_dates(root)
+
         records = root.xpath(xpath_all if include_all else xpath_failed)
         data = []
         for record in records:
@@ -29,6 +33,8 @@ class DMARCRuaParser:
 
             data.append(
                 [
+                    dates["begin"],
+                    dates["end"],
                     row["source_ip"],
                     row["source_host"],
                     payload_from,
@@ -42,6 +48,16 @@ class DMARCRuaParser:
                 ]
             )
         return data
+
+    def _parse_dates(self, root):
+        result = {}
+
+        begin = int(root.xpath("/feedback/report_metadata/date_range/begin/text()")[0])
+        end = int(root.xpath("/feedback/report_metadata/date_range/end/text()")[0])
+
+        result["begin"] = datetime.fromtimestamp(begin).isoformat()
+        result["end"] = datetime.fromtimestamp(end).isoformat()
+        return result
 
     def _parse_row(self, record):
         result = {}
