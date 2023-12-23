@@ -72,7 +72,7 @@ class DNSStub:
         return "mail.email.com"
 
 
-def test_when_spf_not_authenticated(not_authenticated):
+def test_when_spf_not_authenticated(not_authenticated, setup_timezone):
     sut = DMARCRuaParser(DNSStub())
     actual = sut.parse(not_authenticated)
     expected = [
