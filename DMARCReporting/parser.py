@@ -1,5 +1,6 @@
-from lxml import etree as ET
 from datetime import datetime
+
+from lxml import etree as ET
 
 xpath_all = ".//record"
 xpath_failed = (

@@ -1,9 +1,32 @@
+import os
 import io
+import time
 
 import pytest
 
 from .context import DMARCReporting  # noqa F401
 from DMARCReporting.parser import DMARCRuaParser
+
+
+test_tz = 'Europe/Brussels'
+env_tz = ''
+
+
+@pytest.fixture
+def setup_timezone():
+    env_tz = time.tzname[0]
+    print()
+    print(f"save current timezone: {env_tz}")
+    print(f"set timezone for tests to {test_tz}")
+    os.environ['TZ'] = test_tz
+    time.tzset()
+    print(f"timezone is now {time.tzname[0]}")
+    yield
+    print()
+    print(f"reset timezone back to {env_tz}")
+    os.environ['TZ'] = env_tz
+    time.tzset()
+    print(f"timezone is now {time.tzname[0]}")
 
 
 @pytest.fixture

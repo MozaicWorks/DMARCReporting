@@ -30,7 +30,7 @@ format: ## Format source and test code using black
 	pipenv run black --skip-string-normalization tests
 
 test: lint ## Run unit tests
-	pipenv run pytest -vv
+	pipenv run pytest -vv -s
 
 dist: clean ## Creates a source distribution and wheel distribution
 	pipenv run python setup.py sdist bdist_wheel

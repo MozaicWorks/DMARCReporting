@@ -1,13 +1,37 @@
-import io
+import os
 import sys
+import io
+import time
 from unittest.mock import patch
+
+import pytest
 
 from .context import DMARCReporting  # noqa F401
 from DMARCReporting.cli import CLI
 
+test_tz = 'Europe/Brussels'
+env_tz = ''
+
+
+@pytest.fixture
+def setup_timezone():
+    env_tz = time.tzname[0]
+    print()
+    print(f"save current timezone: {env_tz}")
+    print(f"set timezone for tests to {test_tz}")
+    os.environ['TZ'] = test_tz
+    time.tzset()
+    print(f"timezone is now {time.tzname[0]}")
+    yield
+    print()
+    print(f"reset timezone back to {env_tz}")
+    os.environ['TZ'] = env_tz
+    time.tzset()
+    print(f"timezone is now {time.tzname[0]}")
+
 
 @patch('socket.gethostbyaddr')
-def test_render(gethostbyaddr_mock):
+def test_render(gethostbyaddr_mock, setup_timezone):
     gethostbyaddr_mock.side_effect = [
         ("Unknown host", [], []),
         ("208-90-221-45.static.flhsi.com", [], []),
@@ -38,7 +62,7 @@ def test_render(gethostbyaddr_mock):
 
 
 @patch('socket.gethostbyaddr')
-def test_render_all(gethostbyaddr_mock):
+def test_render_all(gethostbyaddr_mock, setup_timezone):
     gethostbyaddr_mock.side_effect = [
         ("smtp.bellous.com", [], []),
         ("smtp.bellous.com", [], []),

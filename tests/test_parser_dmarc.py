@@ -1,9 +1,32 @@
+import os
 import io
+import time
 
 import pytest
 
 from .context import DMARCReporting  # noqa F401
 from DMARCReporting.parser import DMARCRuaParser
+
+
+test_tz = 'Europe/Brussels'
+env_tz = ''
+
+
+@pytest.fixture
+def setup_timezone():
+    env_tz = time.tzname[0]
+    print()
+    print(f"save current timezone: {env_tz}")
+    print(f"set timezone for tests to {test_tz}")
+    os.environ['TZ'] = test_tz
+    time.tzset()
+    print(f"timezone is now {time.tzname[0]}")
+    yield
+    print()
+    print(f"reset timezone back to {env_tz}")
+    os.environ['TZ'] = env_tz
+    time.tzset()
+    print(f"timezone is now {time.tzname[0]}")
 
 
 def rua_report(disposition="none", spf_aligned="pass", dkim_aligned="pass"):
@@ -85,7 +108,7 @@ class DNSStub:
         return "mail.email.com"
 
 
-def test_when_dmarc_disposition_quarantine(rua_report_quarantine):
+def test_when_dmarc_disposition_quarantine(rua_report_quarantine, setup_timezone):
     sut = DMARCRuaParser(DNSStub())
     actual = sut.parse(rua_report_quarantine)
     expected = [
@@ -107,13 +130,13 @@ def test_when_dmarc_disposition_quarantine(rua_report_quarantine):
     assert expected == actual
 
 
-def test_when_dmarc_disposition_none(rua_report_none):
+def test_when_dmarc_disposition_none(rua_report_none, setup_timezone):
     sut = DMARCRuaParser(DNSStub())
     actual = sut.parse(rua_report_none)
     assert [] == actual
 
 
-def test_when_dmarc_disposition_reject(rua_report_reject):
+def test_when_dmarc_disposition_reject(rua_report_reject, setup_timezone):
     sut = DMARCRuaParser(DNSStub())
     actual = sut.parse(rua_report_reject)
     expected = [
@@ -135,13 +158,13 @@ def test_when_dmarc_disposition_reject(rua_report_reject):
     assert expected == actual
 
 
-def test_when_spf_and_dkim_aligned(rua_report_spf_and_dkim_aligned):
+def test_when_spf_and_dkim_aligned(rua_report_spf_and_dkim_aligned, setup_timezone):
     sut = DMARCRuaParser(DNSStub())
     actual = sut.parse(rua_report_spf_and_dkim_aligned)
     assert [] == actual
 
 
-def test_when_spf_not_aligned(rua_report_spf_not_aligned):
+def test_when_spf_not_aligned(rua_report_spf_not_aligned, setup_timezone):
     sut = DMARCRuaParser(DNSStub())
     actual = sut.parse(rua_report_spf_not_aligned)
     expected = [
@@ -163,7 +186,7 @@ def test_when_spf_not_aligned(rua_report_spf_not_aligned):
     assert expected == actual
 
 
-def test_when_dkim_not_aligned(rua_report_dkim_not_aligned):
+def test_when_dkim_not_aligned(rua_report_dkim_not_aligned, setup_timezone):
     sut = DMARCRuaParser(DNSStub())
     actual = sut.parse(rua_report_dkim_not_aligned)
     expected = [
