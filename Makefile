@@ -39,5 +39,5 @@ dist: clean ## Creates a source distribution and wheel distribution
 
 tag: ## Tag version
 	$(eval version := $(shell head -n 1 DMARCReporting/__init__.py | sed -e "s/__version__ = //" | sed -e "s/\"//g"))
-	git tag -a $(version) -m "Bump version $(version)"
+	git tag -a v$(version) -m "Bump version $(version)"
 	git push origin master --follow-tags
