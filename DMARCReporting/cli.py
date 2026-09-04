@@ -15,9 +15,12 @@ class CLI():
         all_data = []
 
         for file in files:
-            report = DecompressorFactory.create(file).decompress(file)
-            data = parser.parse(io.BytesIO(report), include_all=show_all)
-            all_data += [[*row, file] for row in data]
+            try:
+                report = DecompressorFactory.create(file).decompress(file)
+                data = parser.parse(io.BytesIO(report), include_all=show_all)
+                all_data += [[*row, file] for row in data]
+            except Exception as e:
+                print(f"Error processing file {file}: {e}")
 
         renderer = ConsoleRenderer()
         renderer.render("All", all_data)
