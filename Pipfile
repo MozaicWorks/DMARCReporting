@@ -13,6 +13,7 @@ pytest = "*"
 parameterized = "*"
 black = "*"
 setuptools = "*"
+exceptiongroup = {version = "*", markers = "python_version < '3.11'"}
 
 [build]
 wheel = "*"
