@@ -7,7 +7,7 @@ ifeq ($(GITHUB_ACTIONS), true)
     INSTALL_CMD = pipenv install --python=$(shell which python3)
 else
     # Commands for your local machine
-    INSTALL_CMD = pipenv install --deploy
+    INSTALL_CMD = pipenv install
 endif
 
 help: ## Print the help documentation

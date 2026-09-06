@@ -14,6 +14,7 @@ parameterized = "*"
 black = "*"
 setuptools = "*"
 exceptiongroup = {version = "*", markers = "python_version < '3.11'"}
+typing-extensions = {version = "*", markers = "python_version < '3.13'"}
 
 [build]
 wheel = "*"
