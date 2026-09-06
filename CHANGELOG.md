@@ -1,3 +1,7 @@
+## 0.3.1 (6 September 2026)
+
+Continue processing remaining files when one file fails ([#f7a6de3](https://github.com/MozaicWorks/DMARCReporting/commit/f3bd9fb23654fe99c93cfecf30eaa4897b6a86af))
+
 ## 0.3.0 (25 December 2023)
 
 BREAKING CHANGE: Improved file handling causes the report to show the file DMARC RUA report path in the report ([#10](https://github.com/MozaicWorks/DMARCReporting/issues/10)).
