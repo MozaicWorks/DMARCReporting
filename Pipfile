@@ -12,14 +12,13 @@ flake8 = "*"
 pytest = "*"
 parameterized = "*"
 black = "*"
-setuptools = "*"
 typing-extensions = {version = "*", markers = "python_version < '3.13'"}
 
 [build]
 wheel = "*"
 twine = "*"
 check-wheel-contents = "*"
-
+setuptools = "*"
 
 [requires]
 python_full_version = ">=3.10.0"
