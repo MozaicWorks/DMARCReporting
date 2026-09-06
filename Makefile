@@ -23,7 +23,7 @@ install-dev: install ## Install development dependencies
 	$(INSTALL_CMD) --dev
 
 install-build: ## Install build dependencies
-	$(INSTALL_CMD) --categories="build"
+	$(INSTALL_CMD) --categories="default build"
 
 uninstall: ## Uninstall runtime dependencies
 	pipenv uninstall --all
