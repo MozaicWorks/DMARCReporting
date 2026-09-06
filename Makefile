@@ -4,7 +4,7 @@
 # Check if GITHUB_ACTIONS is set
 ifeq ($(GITHUB_ACTIONS), true)
     # Commands for CI (GitHub Actions)
-    INSTALL_CMD = pipenv install --python=$(shell which python3)
+    INSTALL_CMD = pipenv sync
 else
     # Commands for your local machine
     INSTALL_CMD = pipenv install
