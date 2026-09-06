@@ -1,6 +1,15 @@
 .DEFAULT_GOAL := help
 .PHONY: help clean install install-dev install-build reformat lint test dist
 
+# Check if GITHUB_ACTIONS is set
+ifeq ($(GITHUB_ACTIONS), true)
+    # Commands for CI (GitHub Actions)
+    INSTALL_CMD = pipenv install --python=$(shell which python3)
+else
+    # Commands for your local machine
+    INSTALL_CMD = pipenv install --deploy
+endif
+
 help: ## Print the help documentation
 	@grep -h -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
@@ -8,13 +17,13 @@ clean:
 	rm -rf ./dist ./build ./DMARCReporting.egg-info
 
 install: ## Install runtime dependencies
-	pipenv install --deploy
+	$(INSTALL_CMD)
 
 install-dev: install ## Install development dependencies
-	pipenv install --deploy --dev
+	$(INSTALL_CMD) --dev
 
 install-build: ## Install build dependencies
-	pipenv install --deploy --categories="build"
+	$(INSTALL_CMD) --categories="build"
 
 uninstall: ## Uninstall runtime dependencies
 	pipenv uninstall --all
